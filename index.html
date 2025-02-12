@@ -233,6 +233,8 @@ Set-ItemProperty -Path 'HKCU:\\Control Panel\\Desktop' -Name "MenuShowDelay" -Va
 Set-ItemProperty -Path 'HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Themes\\Personalize' -Name "ThemeName" -Value "hc1"
 Start-Process $themePath
 
+Start-Sleep -Seconds 10
+
 shutdown.exe /l
 `;
         navigator.clipboard.writeText(command)
